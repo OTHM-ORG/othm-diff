@@ -24,6 +24,8 @@ void *othm_thread_run(void *thread)
 	tid = (long)THREAD->t;
 	printf("Hello World! It's me, thread #%ld!\n", tid);
 
+/* recycle_point: */
+	int stop_cont = 0;
 	struct othm_list *exec_ptr = THREAD->chain;
 	struct othm_pair pair;
 	struct othm_term *result = NULL;
@@ -39,12 +41,12 @@ void *othm_thread_run(void *thread)
 			(result, state, exec_ptr);
 		result = pair.first;
 
-		exec_ptr = (pair.second != NULL)
+		exec_ptr = (pair.second != NULL && !stop_cont)
 			? pair.second
 			: exec_ptr->next;
 
 	} while (!othm_thread_stop_check(THREAD) && exec_ptr);
-
+	/* if thread should exit or be recycled */
 	pthread_exit(NULL);
 
 #undef  THREAD
