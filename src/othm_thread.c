@@ -20,8 +20,8 @@ void *othm_thread_run(void *thread)
 {
 #define THREAD ((struct othm_thread *) thread)
 #define CURRENT_FUNCTION (((struct othm_comp *) exec_ptr->here)->prim)
-	long tid;
-	tid = (long)THREAD->t;
+	/* long tid; */
+	/* tid = (long)THREAD->t; */
 
 /* recycle_point: */
 	int stop_cont = 0;
