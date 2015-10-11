@@ -22,7 +22,6 @@ void *othm_thread_run(void *thread)
 #define CURRENT_FUNCTION (((struct othm_comp *) exec_ptr->here)->prim)
 	long tid;
 	tid = (long)THREAD->t;
-	printf("Hello World! It's me, thread #%ld!\n", tid);
 
 /* recycle_point: */
 	int stop_cont = 0;

@@ -16,8 +16,8 @@
 			      void *state,		   \
 			      struct othm_list *position)
 
-#define OTHM_CHAIN_FUNCT struct othm_pair (*) (void *, \
-					       void *, \
+#define OTHM_CHAIN_FUNCT struct othm_pair (*) (void *,			\
+					       void *,			\
 					       struct othm_list *)
 
 struct othm_comp {
