@@ -12,8 +12,8 @@
 			      void *state,			   \
 			      struct othm_list *position);	   \
 	OTHM_PRIM_FUNCT_INIT(NAME, SYMBOL_NAME, struct othm_pair); \
-	struct othm_pair NAME(void *arg,		   \
-			      void *state,		   \
+	struct othm_pair NAME(void *arg,			   \
+			      void *state,			   \
 			      struct othm_list *position)
 
 #define OTHM_CHAIN_FUNCT struct othm_pair (*) (void *,			\

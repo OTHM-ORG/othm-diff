@@ -44,8 +44,6 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 					      control->controller,
 					      control->controller_control);
 		}
-	/* 		printf("t"); */
-	/* getchar(); */
 		if (!control->skip) {
 			pair = OTHM_PRIM_FUNCT_GET(CURRENT_FUNCTION,
 						   OTHM_CHAIN_FUNCT)
@@ -57,6 +55,7 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 				: exec_ptr->next;
 		} else {
 		        control->skip = 0;
+			exec_ptr = exec_ptr->next;
 		}
 
 	} while (!othm_thread_stop_check(thread) && exec_ptr);
