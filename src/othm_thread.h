@@ -21,6 +21,10 @@ struct othm_thread {
 
 
 struct othm_thread_control {
+	int skip;
+	void *result;
+        void *state;
+
 	struct othm_list *controller;
 	struct othm_thread_control *controller_control;
 };

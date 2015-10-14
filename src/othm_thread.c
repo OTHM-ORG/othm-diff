@@ -25,40 +25,38 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 
 	struct othm_pair pair;
 	struct othm_list *exec_ptr;
-	int skip;
-	void *result;
-        void *state;
 
 	/* void *controller_state; */
 	/* void *controller_result; */
 
 	exec_ptr = chain;
-	skip = 0;
-	result = input;
-        state = NULL;
-
+	control->skip = 0;
+	control->result = input;
+        control->state = NULL;
 
 	if (exec_ptr == NULL)
 		return NULL;
 
 	do {
-		if (control != NULL) {
+		if (control->controller_control != NULL) {
 		        othm_thread_run_chain(thread,
-					      NULL,
+					      control,
 					      control->controller,
 					      control->controller_control);
 		}
-		if (!skip) {
+	/* 		printf("t"); */
+	/* getchar(); */
+		if (!control->skip) {
 			pair = OTHM_PRIM_FUNCT_GET(CURRENT_FUNCTION,
 						   OTHM_CHAIN_FUNCT)
-				(result, state, exec_ptr);
-			result = pair.first;
+				(control->result, control->state, exec_ptr);
+			control->result = pair.first;
 
 			exec_ptr = (pair.second != NULL)
 				? pair.second
 				: exec_ptr->next;
 		} else {
-		        skip = 0;
+		        control->skip = 0;
 		}
 
 	} while (!othm_thread_stop_check(thread) && exec_ptr);
@@ -96,7 +94,18 @@ struct othm_thread_control *othm_thread_control_new(struct othm_list *controller
 {
 	struct othm_thread_control *control = malloc(sizeof(struct othm_thread_control));
 	control->controller = controller;
-	control->controller_control = controller_control;
+	if (controller_control == NULL) {
+		/* Basically since struct othm_thread_control contains its state in its
+		   controller_control, the lowest level chain without a controller must
+		   still have that field filled to operate. Hopefully this means it is
+		   easy to add a controller to a chain that does not have one.
+		*/
+		control->controller_control = malloc(sizeof(struct othm_thread_control));
+		control->controller_control->controller = NULL;
+		control->controller_control->controller_control = NULL;
+	} else {
+		control->controller_control = controller_control;
+	}
 
 	return control;
 }
