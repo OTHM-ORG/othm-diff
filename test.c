@@ -7,7 +7,7 @@ OTHM_SYMBOL_INIT(Nothing);
 OTHM_SYMBOL_INIT(And);
 
 
-OTHM_CHAIN_DEFUN(MaybeMonad, MaybeMonad)
+OTHM_CHAIN_DEFUN(MaybeController, MaybeController)
 {
 	struct othm_thread_control *control = (struct othm_thread_control *) arg;
 	if (control->result == OTHM_SYMBOL(Nothing))
@@ -47,15 +47,33 @@ OTHM_CHAIN_DEFUN(testing4, testing4)
 	return othm_pair_new(NULL, NULL);
 }
 
+OTHM_CHAIN_DEFUN(Identity, Identity)
+{
+	return othm_pair_new(NULL, NULL);
+}
+
 int main(int argc, char **args)
 {
 	srand(time(NULL));
 	long t = 5;
 
-	struct othm_list *maybe_control_chain = othm_chain_direct
-		(othm_comp_from_prim(OTHM_PRIM_FUNCT(MaybeMonad)),
+	struct othm_list *identity_control_chain = othm_chain_direct
+		(othm_comp_from_prim(OTHM_PRIM_FUNCT(Identity)),
 		 NULL);
-	struct othm_thread_control *maybe_control = othm_thread_control_new(maybe_control_chain, NULL);
+
+	struct othm_list *maybe_control_chain = othm_chain_direct
+		(othm_comp_from_prim(OTHM_PRIM_FUNCT(MaybeController)),
+		 NULL);
+
+	struct othm_list *maybe_control =
+		othm_thread_controller_new(maybe_control_chain,
+					   identity_control_chain,
+					   identity_control_chain,
+					   identity_control_chain,
+					   identity_control_chain,
+					   identity_control_chain,
+					   identity_control_chain,
+					   NULL);
 
 	struct othm_list *chain = othm_chain_direct
 		(othm_comp_from_prim(OTHM_PRIM_FUNCT(testing)),

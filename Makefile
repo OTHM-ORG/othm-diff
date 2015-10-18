@@ -12,11 +12,11 @@ HEADER_FILE_CHAIN  = othm_chain.h
 all: $(LIBRARY_FILE)
 
 $(LIBRARY_FILE): $(OBJ_FILES)
-	gcc -shared -o $(LIBRARY_FILE) $(OBJ_FILES)
+	gcc -g -shared -o $(LIBRARY_FILE) $(OBJ_FILES)
 
 define make-obj
 $(patsubst %.c, $(OBJ_PATH)/%.o, $(notdir $(1))): $(1)  src/$(HEADER_FILE_THREAD) src/$(HEADER_FILE_CHAIN)
-	gcc -c -Wall -Werror -fPIC $$< -o $$@
+	gcc -g -c -Wall -Werror -fPIC $$< -o $$@
 endef
 
 $(foreach src,$(SRC_FILES),$(eval $(call make-obj,$(src))))
