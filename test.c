@@ -9,8 +9,8 @@ OTHM_SYMBOL_INIT(And);
 
 OTHM_CHAIN_DEFUN(MaybeMonad, MaybeMonad)
 {
-	struct othm_thread_control *control = (struct othm_thread_control *) arg;
-	if (control->result == OTHM_SYMBOL(Nothing))
+	/* struct othm_thread_control *control = (struct othm_thread_control *) arg; */
+	if (lower_control->result == OTHM_SYMBOL(Nothing))
 		control->skip = 1;
 	return othm_pair_new(NULL, NULL);
 }

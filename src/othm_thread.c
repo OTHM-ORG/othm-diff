@@ -19,7 +19,8 @@ void othm_thread_stop_mutate(struct othm_thread *thread, int value)
 void *othm_thread_run_chain(struct othm_thread *thread,
 			    void *input,
 			    struct othm_list *chain,
-			    struct othm_thread_control *control)
+			    struct othm_thread_control *control,
+			    struct othm_thread_control *lower_control)
 {
 #define CURRENT_FUNCTION (((struct othm_comp *) exec_ptr->here)->prim)
 
@@ -40,14 +41,16 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 	do {
 		if (control->controller_control != NULL) {
 		        othm_thread_run_chain(thread,
-					      control,
+					      NULL,
 					      control->controller,
-					      control->controller_control);
+					      control->controller_control,
+					      control);
 		}
 		if (!control->skip) {
 			pair = OTHM_PRIM_FUNCT_GET(CURRENT_FUNCTION,
 						   OTHM_CHAIN_FUNCT)
-				(control->result, control->state, exec_ptr);
+				(control->result, control->state, exec_ptr,
+				 control, lower_control);
 			control->result = pair.first;
 
 			exec_ptr = (pair.second != NULL)
@@ -70,7 +73,7 @@ void *othm_thread_run(void *thread)
 	/* struct othm_thread_control test; */
 	/* test.controller = NULL; */
 	othm_thread_run_chain(THREAD, NULL, THREAD->chain,
-			      THREAD->top_control);
+			      THREAD->top_control, NULL);
 	pthread_exit(NULL);
 #undef  THREAD
 }
