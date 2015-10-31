@@ -25,7 +25,14 @@
 					       void *,			\
 					       struct othm_list *,	\
 					       struct othm_thread_control *, \
-					       struct othm_thread_control *) \
+					       struct othm_thread_control *)
+
+#define OTHM_CHAIN_DIRECT_BETA(X) othm_comp_from_prim(OTHM_PRIM_FUNCT(X)),
+
+#define OTHM_CHAIN_DIRECT(...)						\
+	othm_chain_direct						\
+	(OTHM_CPP_EVAL(OTHM_CPP_MAP(OTHM_CHAIN_DIRECT_BETA, __VA_ARGS__)) \
+	 NULL)
 
 struct othm_comp {
 	struct othm_symbol_struct *prim;
