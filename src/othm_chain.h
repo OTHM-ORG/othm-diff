@@ -29,9 +29,10 @@
 
 #define OTHM_CHAIN_DIRECT_BETA(X) othm_comp_from_prim(OTHM_PRIM_FUNCT(X)),
 
-#define OTHM_CHAIN_DIRECT(...)						\
+#define OTHM_CHAIN_DIRECT(LIST_CHAIN_GEN, ...)				\
 	othm_chain_direct						\
-	(OTHM_CPP_EVAL(OTHM_CPP_MAP(OTHM_CHAIN_DIRECT_BETA, __VA_ARGS__)) \
+	(LIST_CHAIN_GEN,						\
+	 OTHM_CPP_EVAL(OTHM_CPP_MAP(OTHM_CHAIN_DIRECT_BETA, __VA_ARGS__)) \
 	 NULL)
 
 struct othm_comp {
@@ -41,6 +42,7 @@ struct othm_comp {
 
 struct othm_comp *othm_comp_from_prim(struct othm_symbol_struct *prim);
 
-struct othm_list *othm_chain_direct(struct othm_comp *first, ...);
+struct othm_list *othm_chain_direct(struct othm_list *(*list_gen_arg)(void),
+				    struct othm_comp *first, ...);
 
 #endif

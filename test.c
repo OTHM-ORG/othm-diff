@@ -57,11 +57,11 @@ int main(int argc, char **args)
 	long t = 5;
 
 	struct othm_list *identity_control_chain = othm_chain_direct
-		(othm_comp_from_prim(OTHM_PRIM_FUNCT(Identity)),
+		(NULL, othm_comp_from_prim(OTHM_PRIM_FUNCT(Identity)),
 		 NULL);
 
 	struct othm_list *maybe_control_chain = othm_chain_direct
-		(othm_comp_from_prim(OTHM_PRIM_FUNCT(MaybeController)),
+		(NULL, othm_comp_from_prim(OTHM_PRIM_FUNCT(MaybeController)),
 		 NULL);
 
 	struct othm_list *maybe_control =
@@ -81,7 +81,7 @@ int main(int argc, char **args)
 	/* 	 othm_comp_from_prim(OTHM_PRIM_FUNCT(testing4)), */
 	/* 	 NULL); */
 	struct othm_list *chain =
-		OTHM_CHAIN_DIRECT(testing, testing2, testing3, testing4);
+		OTHM_CHAIN_DIRECT(NULL, testing, testing2, testing3, testing4);
 	printf("In main: creating thread %ld\n", t);
 	struct othm_thread *thread = othm_thread_new(t, chain, maybe_control);
 	othm_thread_start(thread);
