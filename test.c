@@ -13,7 +13,8 @@ OTHM_CHAIN_DEFUN(MaybeController, MaybeController)
 	return othm_pair_new(NULL, NULL);
 }
 
-OTHM_CHAIN_DEFUN(testing, testing)
+OTHM_CHAIN_DEFUN_TAGGED_BOTH(testing, testing,
+			     char, char)
 {
 	printf("hi\n");
 	return othm_pair_new(NULL, NULL);

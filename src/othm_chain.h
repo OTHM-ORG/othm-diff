@@ -21,6 +21,56 @@
 			      struct othm_thread_control *control,	\
 			      struct othm_thread_control *lower_control)
 
+#define OTHM_CHAIN_DEFUN_TAGGED_LEFT(NAME, SYMBOL_NAME, LTAG_TYPE, ...)	\
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control); \
+	OTHM_PRIM_FUNCT_INIT_TAGGED_LEFT(NAME, SYMBOL_NAME,		\
+					 struct othm_pair,		\
+					 LTAG_TYPE,			\
+					 __VA_ARGS__);			\
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control)
+
+#define OTHM_CHAIN_DEFUN_TAGGED_RIGHT(NAME, SYMBOL_NAME, RTAG_TYPE, ...) \
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control); \
+	OTHM_PRIM_FUNCT_INIT_TAGGED_RIGHT(NAME, SYMBOL_NAME,		\
+					 struct othm_pair,		\
+					 RTAG_TYPE,			\
+					 __VA_ARGS__);			\
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control)
+
+#define OTHM_CHAIN_DEFUN_TAGGED_BOTH(NAME, SYMBOL_NAME,			\
+				     LTAG_TYPE, RTAG_TYPE, ...)		\
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control); \
+	OTHM_PRIM_FUNCT_INIT_TAGGED_BOTH(NAME, SYMBOL_NAME,		\
+					 struct othm_pair,		\
+					 LTAG_TYPE,			\
+					 RTAG_TYPE,			\
+					 __VA_ARGS__);			\
+	struct othm_pair NAME(void *arg,				\
+			      void *state,				\
+			      struct othm_list *position,		\
+			      struct othm_thread_control *control,	\
+			      struct othm_thread_control *lower_control)
+
 #define OTHM_CHAIN_FUNCT struct othm_pair (*) (void *,			\
 					       void *,			\
 					       struct othm_list *,	\
