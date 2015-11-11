@@ -81,7 +81,8 @@ void *othm_thread_run(void *thread)
 }
 
 struct othm_thread *othm_thread_new(long t, struct othm_list *chain,
-				    struct othm_list *controller)
+				    struct othm_list *controller,
+				    void *result, void *state)
 {
 	struct othm_thread *thread;
 	struct othm_thread_control *tc;
@@ -96,6 +97,8 @@ struct othm_thread *othm_thread_new(long t, struct othm_list *chain,
 
 	thread->top_control = malloc(sizeof(struct othm_thread_control));
 	tc = thread->top_control;
+	tc->result = result;
+	tc->state = state;
 	for (c = controller; c != NULL; c = c->next) {
 		tc->controller_control = malloc(sizeof(struct othm_thread_control));
 		tc = tc->controller_control;

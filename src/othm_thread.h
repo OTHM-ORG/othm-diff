@@ -38,7 +38,8 @@ void othm_thread_stop_mutate(struct othm_thread *thread, int value);
 void *othm_thread_chain(void *thread);
 
 struct othm_thread *othm_thread_new(long t, struct othm_list *chain,
-				    struct othm_list *controller);
+				    struct othm_list *controller,
+				    void *result, void *state);
 
 struct othm_list *othm_thread_controller_new(struct othm_list *first, ...);
 

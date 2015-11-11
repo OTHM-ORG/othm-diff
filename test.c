@@ -79,7 +79,8 @@ int main(int argc, char **args)
 	struct othm_list *chain =
 		OTHM_CHAIN_DIRECT(NULL, testing, testing2, testing3, testing4);
 	printf("In main: creating thread %ld\n", t);
-	struct othm_thread *thread = othm_thread_new(t, chain, maybe_control);
+	struct othm_thread *thread = othm_thread_new(t, chain, maybe_control,
+						     NULL, NULL);
 	othm_thread_start(thread);
 
 	pthread_exit(NULL);
