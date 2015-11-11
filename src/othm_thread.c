@@ -17,7 +17,6 @@ void othm_thread_stop_mutate(struct othm_thread *thread, int value)
 }
 
 void *othm_thread_run_chain(struct othm_thread *thread,
-			    void *input,
 			    struct othm_list *chain,
 			    struct othm_thread_control *control,
 			    struct othm_thread_control *lower_control,
@@ -30,8 +29,6 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 
 	exec_ptr = chain;
 	control->skip = 0;
-	control->result = input;
-        control->state = NULL;
 
 	if (exec_ptr == NULL)
 		return NULL;
@@ -40,7 +37,6 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 		if (controller != NULL) {
 
 		        othm_thread_run_chain(thread,
-					      NULL,
 					      controller->here,
 					      control->controller_control,
 					      control,
@@ -71,7 +67,6 @@ void *othm_thread_run(void *thread)
 {
 #define THREAD ((struct othm_thread *) thread)
 	othm_thread_run_chain(THREAD,
-			      NULL,
 			      THREAD->chain,
 			      THREAD->top_control,
 			      NULL,
