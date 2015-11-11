@@ -10,20 +10,17 @@ OTHM_CHAIN_DEFUN(MaybeController, MaybeController)
 {
 	if (lower_control->result == OTHM_SYMBOL(Nothing))
 		lower_control->skip = 1;
-	return othm_pair_new(NULL, NULL);
 }
 
 OTHM_CHAIN_DEFUN_TAGGED_BOTH(testing, testing,
 			     char, char)
 {
 	printf("hi\n");
-	return othm_pair_new(NULL, NULL);
 }
 
 OTHM_CHAIN_DEFUN(testing2, testing2)
 {
 	printf("bye\n");
-	return othm_pair_new(NULL, NULL);
 }
 
 OTHM_CHAIN_DEFUN(testing3, testing3)
@@ -36,19 +33,17 @@ OTHM_CHAIN_DEFUN(testing3, testing3)
 		sym = OTHM_SYMBOL(Nothing);
 	else
 		sym = OTHM_SYMBOL(And);
-	return othm_pair_new(sym, NULL);
+	control->result = sym;
 }
 
 OTHM_CHAIN_DEFUN(testing4, testing4)
 {
-	othm_symbol_print(OTHMSYMBOLSTRUCT(arg));
+	othm_symbol_print(OTHMSYMBOLSTRUCT(control->result));
 	printf(" this if not nothing!\n");
-	return othm_pair_new(NULL, NULL);
 }
 
 OTHM_CHAIN_DEFUN(Identity, Identity)
 {
-	return othm_pair_new(NULL, NULL);
 }
 
 int main(int argc, char **args)

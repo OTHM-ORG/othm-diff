@@ -9,73 +9,55 @@
 
 
 #define OTHM_CHAIN_DEFUN(NAME, SYMBOL_NAME)				\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control); \
-	OTHM_PRIM_FUNCT_INIT(NAME, SYMBOL_NAME, struct othm_pair);	\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control)
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control);		\
+	OTHM_PRIM_FUNCT_INIT(NAME, SYMBOL_NAME, void);			\
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control)
 
 #define OTHM_CHAIN_DEFUN_TAGGED_LEFT(NAME, SYMBOL_NAME, LTAG_TYPE, ...)	\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control); \
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control);		\
 	OTHM_PRIM_FUNCT_INIT_TAGGED_LEFT(NAME, SYMBOL_NAME,		\
-					 struct othm_pair,		\
+					 void,				\
 					 LTAG_TYPE,			\
 					 __VA_ARGS__);			\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control)
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control)
 
 #define OTHM_CHAIN_DEFUN_TAGGED_RIGHT(NAME, SYMBOL_NAME, RTAG_TYPE, ...) \
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control); \
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control);		\
 	OTHM_PRIM_FUNCT_INIT_TAGGED_RIGHT(NAME, SYMBOL_NAME,		\
-					 struct othm_pair,		\
-					 RTAG_TYPE,			\
-					 __VA_ARGS__);			\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control)
+					  void,				\
+					  RTAG_TYPE,			\
+					  __VA_ARGS__);			\
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control)
 
 #define OTHM_CHAIN_DEFUN_TAGGED_BOTH(NAME, SYMBOL_NAME,			\
 				     LTAG_TYPE, RTAG_TYPE, ...)		\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control); \
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control);		\
 	OTHM_PRIM_FUNCT_INIT_TAGGED_BOTH(NAME, SYMBOL_NAME,		\
-					 struct othm_pair,		\
+					 void,				\
 					 LTAG_TYPE,			\
 					 RTAG_TYPE,			\
 					 __VA_ARGS__);			\
-	struct othm_pair NAME(void *arg,				\
-			      void *state,				\
-			      struct othm_list *position,		\
-			      struct othm_thread_control *control,	\
-			      struct othm_thread_control *lower_control)
+	void NAME(struct othm_list *position,				\
+		  struct othm_thread_control *control,			\
+		  struct othm_thread_control *lower_control)
 
-#define OTHM_CHAIN_FUNCT struct othm_pair (*) (void *,			\
-					       void *,			\
-					       struct othm_list *,	\
-					       struct othm_thread_control *, \
-					       struct othm_thread_control *)
+#define OTHM_CHAIN_FUNCT void (*) (struct othm_list *,			\
+				   struct othm_thread_control *,	\
+				   struct othm_thread_control *)
 
 #define OTHM_CHAIN_DIRECT_BETA(X) othm_comp_from_prim(OTHM_PRIM_FUNCT(X)),
 

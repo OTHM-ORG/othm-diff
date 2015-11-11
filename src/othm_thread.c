@@ -25,7 +25,7 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 {
 #define CURRENT_FUNCTION (((struct othm_comp *) exec_ptr->here)->prim)
 
-	struct othm_pair pair;
+	/* struct othm_pair pair; */
 	struct othm_list *exec_ptr;
 
 	exec_ptr = chain;
@@ -37,8 +37,6 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 		return NULL;
 
 	do {
-
-
 		if (controller != NULL) {
 
 		        othm_thread_run_chain(thread,
@@ -47,18 +45,17 @@ void *othm_thread_run_chain(struct othm_thread *thread,
 					      control->controller_control,
 					      control,
 					      controller->next);
-
 		}
 		if (!control->skip) {
-			pair = OTHM_PRIM_FUNCT_GET(CURRENT_FUNCTION,
-						   OTHM_CHAIN_FUNCT)
-				(control->result, control->state, exec_ptr,
-				 control, lower_control);
-			control->result = pair.first;
+			OTHM_PRIM_FUNCT_GET(CURRENT_FUNCTION,
+					    OTHM_CHAIN_FUNCT)
+				(exec_ptr, control, lower_control);
+			/* control->result = pair.first; */
 
-			exec_ptr = (pair.second != NULL)
-				? pair.second
+			exec_ptr = (control->position != NULL)
+				? control->position
 				: exec_ptr->next;
+			control->position = NULL;
 		} else {
 		        control->skip = 0;
 			exec_ptr = exec_ptr->next;
